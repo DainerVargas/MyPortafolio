@@ -3,43 +3,43 @@ import '../css/app.css';
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    const frases = [
-        "Desarrollador web",
-        "Frontend y Backend",
-        "Diseñador UX/UI",
-    ];
+  const frases = [
+    "Desarrollador web",
+    "Frontend y Backend",
+    "Diseñador UX/UI",
+  ];
 
-    const elemento = document.getElementById("skills");
+  const elemento = document.getElementById("skills");
 
-    let fraseIndex = 0;
-    let letraIndex = 0;
-    let borrando = false;
+  let fraseIndex = 0;
+  let letraIndex = 0;
+  let borrando = false;
 
-    function escribirFrases() {
-        let textoCompleto = frases[fraseIndex];
+  function escribirFrases() {
+    let textoCompleto = frases[fraseIndex];
 
-        if (!borrando) {
-            elemento.innerHTML = textoCompleto.substring(0, letraIndex) + '<span class="cursor">|</span>';
-            letraIndex++;
+    if (!borrando) {
+      elemento.innerHTML = textoCompleto.substring(0, letraIndex) + '<span class="cursor">|</span>';
+      letraIndex++;
 
-            if (letraIndex === textoCompleto.length + 1) {
-                setTimeout(() => borrando = true, 800);
-            }
+      if (letraIndex === textoCompleto.length + 1) {
+        setTimeout(() => borrando = true, 800);
+      }
 
-        } else {
-            elemento.innerHTML = textoCompleto.substring(0, letraIndex) + '<span class="cursor">|</span>';
-            letraIndex--;
+    } else {
+      elemento.innerHTML = textoCompleto.substring(0, letraIndex) + '<span class="cursor">|</span>';
+      letraIndex--;
 
-            if (letraIndex === 0) {
-                borrando = false;
-                fraseIndex = (fraseIndex + 1) % frases.length;
-            }
-        }
-
-        setTimeout(escribirFrases, borrando ? 60 : 90);
+      if (letraIndex === 0) {
+        borrando = false;
+        fraseIndex = (fraseIndex + 1) % frases.length;
+      }
     }
 
-    escribirFrases();
+    setTimeout(escribirFrases, borrando ? 60 : 90);
+  }
+
+  escribirFrases();
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -104,3 +104,58 @@ document.addEventListener('DOMContentLoaded', function () {
 
   startAnimation();
 });
+
+function scroll() {
+  let home = document.getElementById('home');
+  let about = document.getElementById('about');
+  let skill = document.getElementById('skill');
+  let project = document.getElementById('project');
+
+  home.addEventListener('click', () => {
+    smoothScrollTo('#main', 900);
+  });
+  about.addEventListener('click', () => {
+    smoothScrollTo('#conteAbout', 900);
+  });
+  skill.addEventListener('click', () => {
+    smoothScrollTo('#conteSkills', 900);
+  });
+  project.addEventListener('click', () => {
+    smoothScrollTo('#conteProjects', 900);
+  });
+
+  function smoothScrollTo(selector, duration = 600) {
+    const target = document.querySelector(selector);
+    const start = window.pageYOffset;
+    const end = target.offsetTop;
+    const distance = end - start;
+    let startTime = null;
+
+    function animation(currentTime) {
+      if (!startTime) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+
+      const ease = easeInOutQuad(progress);
+
+      window.scrollTo(0, start + distance * ease);
+
+      if (timeElapsed < duration) requestAnimationFrame(animation);
+    }
+
+    requestAnimationFrame(animation);
+  }
+
+  function easeInOutQuad(t) {
+    return t < 0.5
+      ? 2 * t * t
+      : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  }
+
+  window.scrollTo({
+    top: targetPos,
+    behavior: "smooth"
+  });
+}
+
+scroll();

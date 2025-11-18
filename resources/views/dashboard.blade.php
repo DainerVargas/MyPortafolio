@@ -42,7 +42,7 @@ min-h-screen">
 
             <div class="text-white space-y-6 z-20">
                 <h1 class="text-5xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">
-                    ¡Hola! Soy <span class="text-yellow-300">Dainer Vargas</span>
+                    ¡Hola!, Soy <span class="text-yellow-300">Dainer Vargas</span>
                 </h1>
 
                 <div class="flex items-center gap-2 text-2xl">
@@ -104,8 +104,8 @@ min-h-screen">
 
                 <div
                     class="md:col-span-2 bg-white/70 backdrop-blur-xl p-10 rounded-2xl shadow-2xl border border-gray-200">
-                    <p class="text-lg text-[#12224f] leading-relaxed">
-                        Hola, feliz lunes, mi nombre es Dainer Vargas soy un amante del diseño web.
+                    <p class="text-[20px] text-[#12224f] text-justify leading-relaxed">
+                        Hola, feliz lunes, mi nombre es Dainer Vargas, soy un amante del diseño web;
                         He tenido logros notables, como ser Campeón Regional de la Guajira y representar
                         a mi región en Cúcuta. Cada día sigo persiguiendo la excelencia en el diseño web,
                         explorando nuevas tendencias y técnicas para brindar soluciones únicas y atractivas
@@ -120,7 +120,8 @@ min-h-screen">
             </div>
         </section>
 
-        <section id="skills" class="relative w-full py-24 overflow-hidden">
+        {{-- SKILLS --}}
+        <section id="conteSkills" class="relative w-full py-24 overflow-hidden">
             <h2
                 class="text-center text-4xl md:text-5xl font-extrabold text-[#0e1a3b] mb-16
         bg-white/70 mx-auto w-fit px-10 py-4 rounded-2xl shadow-lg">
@@ -132,7 +133,7 @@ min-h-screen">
                 <div class="card">
                     <div id="rotate" class="text-container">
                         <img id="sass" src="{{ asset('storage/images/sass.svg') }}" alt="sass-logo">
-                        <div class="textoOcultar">
+                        <div class="textoOcultar w-full">
                             <p id="color">Sass es un lenguaje de hojas de estilo compilado en CSS. Sass ayuda a
                                 mantener bien organizadas las hojas de estilo grandes y facilita compartir diseños
                                 dentro y entre proyectos.​</p>
@@ -165,7 +166,7 @@ min-h-screen">
                 </div>
                 <div class="card">
                     <div id="rotate" class="text-container">
-                        <img id="laravel" src="{{ asset('storage/images/laravelAvance2.png') }}" alt="Image">
+                        <img id="laravel" src="{{ asset('storage/images/laravelAvance.png') }}" alt="Image">
                         <div class="textoOcultar">
                             <p id="color">Laravel es un framework de código abierto para desarrollar
                                 aplicaciones y servicios web
@@ -185,7 +186,7 @@ min-h-screen">
                 </div>
                 <div class="card">
                     <div id="rotate" class="text-container">
-                        <img id="mysql" src="/images/mysqlAvance3.png" alt="Image">
+                        <img id="mysql" src="{{ asset('storage/images/mysqlAvance.png') }}" alt="Image">
                         <div class="textoOcultar">
                             <p id="color">
                                 MySQL es un sistema de gestión de bases de datos relacionales (RDBMS) de código
@@ -196,7 +197,7 @@ min-h-screen">
                 </div>
                 <div class="card">
                     <div id="rotate" class="text-container">
-                        <img id="html" src="{{ asset('storage/images/htmlAvance2.png') }}" alt="Image">
+                        <img id="html" src="{{ asset('storage/images/htmlAvance.png') }}" alt="Image">
                         <div class="textoOcultar">
                             <p id="color">HTML, siglas en inglés de HyperText Markup Language, hace referencia
                                 al lenguaje de marcado para la elaboración de páginas web.</p>
@@ -205,7 +206,7 @@ min-h-screen">
                 </div>
                 <div class="card">
                     <div id="rotate" class="text-container">
-                        <img id="css" src="/images/cssAvance2.png" alt="Image">
+                        <img id="css" src="{{ asset('storage/images/cssAvance.png') }}" alt="Image">
                         <div class="textoOcultar">
                             <p id="color">CSS es un lenguaje de diseño gráfico para definir y crear la
                                 presentación de un documento estructurado escrito en un lenguaje de marcado</p>
@@ -214,27 +215,148 @@ min-h-screen">
                 </div>
                 <div class="card">
                     <div id="rotate" class="text-container">
-                        <img id="photoShop" src="{{ asset('storage/images/photoShopAvance.png') }}" alt="Image">
+                        <img id="photoShop" src="{{ asset('storage/images/tailwindcss.svg') }}" alt="Image">
                         <div class="textoOcultar">
-                            <p id="color">Adobe Photoshop es un editor de fotografías desarrollado por Adobe
-                                Systems Incorporated. Usado principalmente para el retoque de fotografías y
-                                gráficos.</p>
+                            <p id="color">Tailwind CSS
+                                es un framework CSS, permite construir interfaces de usuario
+                                rápidamente. En lugar de proporcionar componentes predefinidos, ofrece un conjunto de
+                                clases de bajo nivel (utilidades) para aplicar estilos específicos en el HTML.</p>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div id="rotate" class="text-container">
-                        <img id="xd" src="{{ asset('storage/images/xdAvance.png') }}" alt="Image">
+                        <img id="xd" src="{{ asset('storage/images/Figma.png') }}" alt="Image">
                         <div class="textoOcultar">
-                            <p id="color">Adobe Xd es una aplicación móvil, donde puedes editar vídeos y fotos.
-                                Adobe XD apoya al diseño vectorial y a los sitios web wireframe, creando prototipos
-                                simples e interactivos con un solo clic.​</p>
+                            <p id="color">Figma es una herramienta de diseño de interfaces de usuario colaborativa
+                                y basada en la nube, utilizada para crear, prototipar y entregar diseños de productos
+                                digitales como sitios web y aplicaciones móviles.​</p>
                         </div>
                     </div>
                 </div>
 
             </div>
         </section>
+
+        {{-- MY PROJECTS --}}
+        <section id="conteProjects" class="w-full py-24">
+            <h2
+                class="text-center text-4xl md:text-5xl font-extrabold text-[#0e1a3b] mb-16
+        bg-white/70 mx-auto w-fit px-10 py-4 rounded-2xl shadow-lg">
+                MIS PROYECTOS
+            </h2>
+
+            <div class="container mx-auto px-6 md:px-20 grid md:grid-cols-3 gap-10">
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-xl text-white
+            hover:scale-[1.03] transition-all duration-300 ease-out">
+
+                    <h3 class="text-2xl font-bold text-center mb-4 text-[#0e1a3b]">Aplicación Web</h3>
+
+                    <img src="{{ asset('storage/Projects/mcstudies.png') }}" class="w-full rounded-lg shadow-md mb-6" alt="Proyecto 2">
+
+                    <p class="text-sm text-[#0e1a3b] text-justify leading-relaxed mb-6">
+                        Realicé esta aplicación web para mantener la información de los estudiantes, informes de pago,
+                        consultas, historial y más. Ayuda a los encargados a encontrar información de forma eficiente,
+                        ya que todo está organizado por secciones dentro del sistema.
+                    </p>
+
+                    <div class="text-right">
+                        <a href="https://aplicacion.mcstudies.com/" target="_blank"
+                            class="bg-[#0e1a3b] text-white px-5 py-2 rounded-lg text-sm shadow-lg hover:bg-blue-900 transition">
+                            Ver Proyecto
+                        </a>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-xl text-white
+            hover:scale-[1.03] transition-all duration-300 ease-out">
+
+                    <h3 class="text-2xl font-bold text-center mb-4 text-[#0e1a3b]">Construcentro Colombia SAS</h3>
+
+                    <img src="{{ asset('storage/Projects/construcentro.png') }}" class="w-full border rounded-lg shadow-md mb-6" alt="Proyecto 3">
+
+                    <p class="text-sm text-[#0e1a3b] text-justify leading-relaxed mb-6">
+                        Realicé esta página web para la venta de productos, donde los usuarios pueden explorar diferentes categorías, agregar productos al carrito y realizar compras de manera segura. Este sistema incluye un panel de administración para gestionar inventarios y pedidos, facilitando la operación del negocio.
+                    </p>
+
+                    <div class="text-right">
+                        <a href="https://store.construcentro.com.co/" target="_blank"
+                            class="bg-[#0e1a3b] text-white px-5 py-2 rounded-lg text-sm shadow-lg hover:bg-blue-900 transition">
+                            Ver Proyecto
+                        </a>
+                    </div>
+                </div>
+
+                 <div
+                    class="bg-white p-8 rounded-2xl shadow-xl text-white
+            hover:scale-[1.03] transition-all duration-300 ease-out">
+
+                    <h3 class="text-2xl font-bold text-center mb-4 text-[#0e1a3b]">Aplicativo SENA</h3>
+
+                    <img src="{{ asset('storage/Projects/SenaAplicativo.png') }}" class="w-full rounded-lg shadow-md mb-6" alt="Proyecto 1">
+
+                    <p class="text-sm text-[#0e1a3b] text-justify leading-relaxed mb-6">
+                        Realicé un aplicativo para la calificación de programas de formación, donde ayuda a los
+                        profesionales de la calidad a mantener la información ordenada y visualizar los resultados
+                        asignados a cada programa. Este sistema es útil para todos los centros de formación
+                        del país.
+                    </p>
+
+                    <div class="text-right">
+                        <a href="#" target="_blank"
+                            class="bg-[#0e1a3b] text-white px-5 py-2 rounded-lg text-sm shadow-lg hover:bg-blue-900 transition">
+                            Ver Proyecto
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{-- CONTACT --}}
+        <section id="contact" class="w-full py-24">
+    <h2
+        class="text-center text-4xl md:text-5xl font-extrabold text-[#0e1a3b] mb-16
+        bg-white mx-auto w-fit px-10 py-4 rounded-2xl shadow-lg">
+        CONTACTO
+    </h2>
+
+    <div class="container mx-auto px-6 md:px-20 max-w-2xl">
+        <div class="bg-white/70 backdrop-blur-xl p-10 rounded-2xl shadow-2xl border border-gray-200">
+
+            <!-- Título -->
+            <div class="flex items-center gap-3 mb-6">
+                <span class="w-4 h-4 rounded-full bg-[#6d8ac9] shadow-md"></span>
+                <h3 class="text-3xl font-bold text-[#0e1a3b]">Contactame</h3>
+            </div>
+
+            <p class="text-sm text-gray-600 mb-8">Envíame un mensaje y trabajemos juntos.</p>
+
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" placeholder="Nombre"
+                        class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none transition">
+
+                    <input type="text" placeholder="Asunto"
+                        class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none transition">
+                </div>
+
+                <input type="email" placeholder="Email"
+                    class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none transition">
+
+                <textarea rows="5" placeholder="Escribe un mensaje..."
+                    class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none transition"></textarea>
+
+                <button
+                    class="w-full bg-[#3f5bd8] hover:bg-[#334cc0] text-white font-semibold py-3 rounded-xl shadow-lg transition-all">
+                    Enviar mensaje
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
 
     </main>
 
