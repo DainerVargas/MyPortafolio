@@ -1,368 +1,538 @@
+<!-- DBG: DEFINITIVE VERSION 1.0 -->
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/resources/sass/app.scss">
+    <title>Dainer Vargas | Portfolio</title>
+    <meta name="description" content="{{ __('messages.hero.description') }}">
+    <link rel="icon" type="image/png" href="{{ asset('storage/logos/logo-blue.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Jersey+25&family=Pixelify+Sans:wght@400..700&family=Rubik+Wet+Paint&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-        rel="stylesheet">
-    <link rel="icon" type="image/png" href="{{ asset('storage/logos/logo-blue.png') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <title>Document</title>
     @livewireStyles
-    @vite('resources/js/app.js')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .skill-card:nth-child(even) {
+            animation-delay: 0.5s;
+        }
+
+        .skill-card:nth-child(3n) {
+            animation-delay: 1s;
+        }
+
+        .cursor {
+            display: inline-block;
+            margin-left: 2px;
+            animation: blink 0.7s infinite;
+            color: inherit;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Skills Click State for Mobile */
+        .skill-card.is-active {
+            transform: translateY(-0.75rem) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-color: rgba(168, 85, 247, 0.4);
+        }
+
+        .skill-card.is-active .group-hover\:opacity-0 {
+            opacity: 0;
+        }
+
+        .skill-card.is-active .group-hover\:opacity-100 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-card.is-active .group-hover\:bg-purple-500\/10 {
+            background-color: rgba(168, 85, 247, 0.1);
+        }
+
+        .skill-card.is-active .group-hover\:scale-110 {
+            transform: scale(1.1) rotate(3deg);
+        }
+    </style>
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia(
+                '(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+
+        window.typewriterRoles = @json(__('messages.hero.typewriter_roles'));
+    </script>
 </head>
 
-<body class="bg-gradient-to-br from-[#6A00FF] via-[#B226FF] to-[#FF63CE] {{-- 2a059b --}}
-min-h-screen">
-
-    <header class="fixed top-0 left-0 w-full flex justify-between items-center px-10 py-4 z-50">
-        <img src="{{ asset('storage/logos/logo-white.png') }}" class="h-18" alt="Logo">
-
-        <nav class="hidden md:flex gap-10 text-white font-semibold text-lg">
-            <span id="home" class="hover:text-gray-200 cursor-pointer">Home</span>
-            <span id="about" class="hover:text-gray-200 cursor-pointer">Sobre mí</span>
-            <span id="skill" class="hover:text-gray-200 cursor-pointer">Habilidades</span>
-            <span id="project" class="hover:text-gray-200 cursor-pointer">Proyectos</span>
-        </nav>
-
-        <button id="contact"
-            class="bg-white text-purple-700 font-bold px-4 py-2 rounded-xl shadow-xl hover:bg-gray-200 transition">Contactame</button>
-    </header>
-
-    <main id="main" class="relative pt-32 pb-20 overflow-hidden">
-
-        {{-- HOME --}}
-        <section id="conteHome" class="container mx-auto px-10 grid grid-cols-1 md:grid-cols-2 items-start gap-10">
-
-            <div class="text-white space-y-6 z-20">
-                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">
-                    ¡Hola!, Soy <span class="text-yellow-300">Dainer Vargas</span>
-                </h1>
-
-                <div class="flex items-center gap-2 text-2xl">
-                    <p class="flecha">></p>
-                    <p id="skills" class=" efecto-habilidades text-xl md:text-2xl opacity-90 font-light "></p>
-                </div>
-
-                <p class="text-lg max-w-lg opacity-90">
-                    Construyo aplicaciones web rápidas, modernas y elegantes para potenciar tu empresa,
-                    negocio o emprendimiento.
-                    Diseño, frontend, backend y despliegue en un solo lugar.
-                </p>
-
-                <div class="flex gap-4 pt-4">
-                    <a href="/document/Dainer Vargas - Perfil Profesional.pdf" download
-                        class="bg-white text-purple-700 font-bold px-6 py-3 rounded-xl shadow-xl hover:bg-gray-200 transition">
-                        Descarga mi CV
-                    </a>
-
-                    <a href="#proyectos"
-                        class="bg-purple-900/40 border border-white/40 text-white px-6 py-3 rounded-xl shadow-xl hover:bg-purple-900/60 transition">
-                        Ver Proyectos
-                    </a>
-                </div>
-
-                <div class="mt-8 space-y-3">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-medal text-yellow-300 text-xl"></i>
-                        <p class="text-white">Campeón regional – Tecnología Web (WorldSkills)</p>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-medal text-yellow-300 text-xl"></i>
-                        <p class="text-white">Primer lugar nacional entre todas las regionales</p>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-medal text-yellow-300 text-xl"></i>
-                        <p class="text-white">Representé a La Guajira en Cúcuta</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="flex justify-center md:justify-center relative z-20">
-                <img src="{{ asset('storage/images/jovenPrincipal-gafas.png') }}"
-                    class="w-80 md:w-[370px] drop-shadow-2xl" alt="Ilustración">
-            </div>
-
-        </section>
-
-        {{-- ABOUT ME --}}
-        <section id="conteAbout" class="relative w-full py-24 overflow-hidden">
-            <h2
-                class="text-center text-4xl md:text-5xl font-extrabold mb-16
-               bg-white/70 text-[#0e1a3b] mx-auto w-fit px-10 py-4 rounded-2xl shadow-lg">
-                SOBRE MI
-            </h2>
-
-            <div class="container mx-auto px-6 md:px-20 gap-10 items-center">
-
-                <div
-                    class="md:col-span-2 bg-white/70 backdrop-blur-xl p-10 rounded-2xl shadow-2xl border border-gray-200">
-                    <p class="text-[20px] text-[#12224f] text-justify leading-relaxed">
-                        Hola, feliz lunes, mi nombre es Dainer Vargas, soy un amante del diseño web;
-                        He tenido logros notables, como ser Campeón Regional de la Guajira y representar
-                        a mi región en Cúcuta. Cada día sigo persiguiendo la excelencia en el diseño web,
-                        explorando nuevas tendencias y técnicas para brindar soluciones únicas y atractivas
-                        a mis clientes y audiencia.
-                    </p>
-                </div>
-                <div class="absolute top-0 w-full">
-                    <canvas id="fireworks"></canvas>
-                </div>
-            </div>
-
-            </div>
-        </section>
-
-        {{-- SKILLS --}}
-        <section id="conteSkills" class="relative w-full py-24 overflow-hidden">
-            <h2
-                class="text-center text-4xl md:text-5xl font-extrabold text-[#0e1a3b] mb-16
-        bg-white/70 mx-auto w-fit px-10 py-4 rounded-2xl shadow-lg">
-                MIS HABILIDADES
-            </h2>
-
-            <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 px-6 md:px-20">
-
-                <div class="card">
-                    <div id="rotate" class="text-container">
-                        <img id="sass" src="{{ asset('storage/images/sass.svg') }}" alt="sass-logo">
-                        <div class="textoOcultar w-full">
-                            <p id="color">Sass es un lenguaje de hojas de estilo compilado en CSS. Sass ayuda a
-                                mantener bien organizadas las hojas de estilo grandes y facilita compartir diseños
-                                dentro y entre proyectos.​</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div id="rotate" class="text-container">
-                        <img id="js" src="{{ asset('storage/images/jsAvance.png') }}" alt="Image">
-                        <div class="textoOcultar">
-                            <p id="color">JavaScript es un lenguaje de programación interpretado, dialecto del
-                                estándar ECMAScript.
-                                Se
-                                define como orientado a objetos, basado en prototipos, imperativo, débilmente tipado
-                                y
-                                dinámico.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div id="rotate" class="text-container">
-                        <img id="php" src="{{ asset('storage/images/phpAvance.png') }}" alt="Image">
-                        <div class="textoOcultar">
-                            <p id="color">PHP es un lenguaje de programación interpretado​ del lado del servidor
-                                y de uso general
-                                que se adapta especialmente al desarrollo web.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div id="rotate" class="text-container">
-                        <img id="laravel" src="{{ asset('storage/images/laravelAvance.png') }}" alt="Image">
-                        <div class="textoOcultar">
-                            <p id="color">Laravel es un framework de código abierto para desarrollar
-                                aplicaciones y servicios web
-                                con PHP 5, PHP 7 y PHP 8. Su filosofía es desarrollar código PHP de forma elegante y
-                                simple, evitando el "código espagueti". </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div id="rotate" class="text-container">
-                        <img id="vue" src="{{ asset('storage/images/livewire.png') }}" alt="livewire-logo">
-                        <div class="textoOcultar">
-                            <p id="color">Livewire es un marco completo para Laravel que simplifica la creación
-                                de interfaces dinámicas, sin abandonar la comodidad de Laravel.​</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div id="rotate" class="text-container">
-                        <img id="mysql" src="{{ asset('storage/images/mysqlAvance.png') }}" alt="Image">
-                        <div class="textoOcultar">
-                            <p id="color">
-                                MySQL es un sistema de gestión de bases de datos relacionales (RDBMS) de código
-                                abierto
-                                respaldado por Oracle y basado en el lenguaje de consulta estructurado (SQL).</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div id="rotate" class="text-container">
-                        <img id="html" src="{{ asset('storage/images/htmlAvance.png') }}" alt="Image">
-                        <div class="textoOcultar">
-                            <p id="color">HTML, siglas en inglés de HyperText Markup Language, hace referencia
-                                al lenguaje de marcado para la elaboración de páginas web.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div id="rotate" class="text-container">
-                        <img id="css" src="{{ asset('storage/images/cssAvance.png') }}" alt="Image">
-                        <div class="textoOcultar">
-                            <p id="color">CSS es un lenguaje de diseño gráfico para definir y crear la
-                                presentación de un documento estructurado escrito en un lenguaje de marcado</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div id="rotate" class="text-container">
-                        <img id="photoShop" src="{{ asset('storage/images/tailwindcss.svg') }}" alt="Image">
-                        <div class="textoOcultar">
-                            <p id="color">Tailwind CSS
-                                es un framework CSS, permite construir interfaces de usuario
-                                rápidamente. En lugar de proporcionar componentes predefinidos, ofrece un conjunto de
-                                clases de bajo nivel (utilidades) para aplicar estilos específicos en el HTML.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div id="rotate" class="text-container">
-                        <img id="xd" src="{{ asset('storage/images/Figma.png') }}" alt="Image">
-                        <div class="textoOcultar">
-                            <p id="color">Figma es una herramienta de diseño de interfaces de usuario colaborativa
-                                y basada en la nube, utilizada para crear, prototipar y entregar diseños de productos
-                                digitales como sitios web y aplicaciones móviles.​</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        {{-- MY PROJECTS --}}
-        <section id="conteProjects" class="w-full py-24">
-            <h2
-                class="text-center text-4xl md:text-5xl font-extrabold text-[#0e1a3b] mb-16
-        bg-white/70 mx-auto w-fit px-10 py-4 rounded-2xl shadow-lg">
-                MIS PROYECTOS
-            </h2>
-
-            <div class="container mx-auto px-6 md:px-20 grid md:grid-cols-3 gap-10">
-                <div
-                    class="bg-white p-8 rounded-2xl shadow-xl text-white
-            hover:scale-[1.03] transition-all duration-300 ease-out">
-
-                    <h3 class="text-2xl font-bold text-center mb-4 text-[#0e1a3b]">Aplicación Web</h3>
-
-                    <img src="{{ asset('storage/Projects/mcstudies.png') }}" class="w-full rounded-lg shadow-md mb-6" alt="Proyecto 2">
-
-                    <p class="text-sm text-[#0e1a3b] text-justify leading-relaxed mb-6">
-                        Realicé esta aplicación web para mantener la información de los estudiantes, informes de pago,
-                        consultas, historial y más. Ayuda a los encargados a encontrar información de forma eficiente,
-                        ya que todo está organizado por secciones dentro del sistema.
-                    </p>
-
-                    <div class="text-right">
-                        <a href="https://aplicacion.mcstudies.com/" target="_blank"
-                            class="bg-[#0e1a3b] text-white px-5 py-2 rounded-lg text-sm shadow-lg hover:bg-blue-900 transition">
-                            Ver Proyecto
-                        </a>
-                    </div>
-                </div>
-
-                <div
-                    class="bg-white p-8 rounded-2xl shadow-xl text-white
-            hover:scale-[1.03] transition-all duration-300 ease-out">
-
-                    <h3 class="text-2xl font-bold text-center mb-4 text-[#0e1a3b]">Construcentro Colombia SAS</h3>
-
-                    <img src="{{ asset('storage/Projects/construcentro.png') }}" class="w-full border rounded-lg shadow-md mb-6" alt="Proyecto 3">
-
-                    <p class="text-sm text-[#0e1a3b] text-justify leading-relaxed mb-6">
-                        Realicé esta página web para la venta de productos, donde los usuarios pueden explorar diferentes categorías, agregar productos al carrito y realizar compras de manera segura. Este sistema incluye un panel de administración para gestionar inventarios y pedidos, facilitando la operación del negocio.
-                    </p>
-
-                    <div class="text-right">
-                        <a href="https://store.construcentro.com.co/" target="_blank"
-                            class="bg-[#0e1a3b] text-white px-5 py-2 rounded-lg text-sm shadow-lg hover:bg-blue-900 transition">
-                            Ver Proyecto
-                        </a>
-                    </div>
-                </div>
-
-                 <div
-                    class="bg-white p-8 rounded-2xl shadow-xl text-white
-            hover:scale-[1.03] transition-all duration-300 ease-out">
-
-                    <h3 class="text-2xl font-bold text-center mb-4 text-[#0e1a3b]">Aplicativo SENA</h3>
-
-                    <img src="{{ asset('storage/Projects/SenaAplicativo.png') }}" class="w-full rounded-lg shadow-md mb-6" alt="Proyecto 1">
-
-                    <p class="text-sm text-[#0e1a3b] text-justify leading-relaxed mb-6">
-                        Realicé un aplicativo para la calificación de programas de formación, donde ayuda a los
-                        profesionales de la calidad a mantener la información ordenada y visualizar los resultados
-                        asignados a cada programa. Este sistema es útil para todos los centros de formación
-                        del país.
-                    </p>
-
-                    <div class="text-right">
-                        <a href="#" target="_blank"
-                            class="bg-[#0e1a3b] text-white px-5 py-2 rounded-lg text-sm shadow-lg hover:bg-blue-900 transition">
-                            Ver Proyecto
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {{-- CONTACT --}}
-        <section id="contact" class="w-full py-24">
-    <h2
-        class="text-center text-4xl md:text-5xl font-extrabold text-[#0e1a3b] mb-16
-        bg-white mx-auto w-fit px-10 py-4 rounded-2xl shadow-lg">
-        CONTACTO
-    </h2>
-
-    <div class="container mx-auto px-6 md:px-20 max-w-2xl">
-        <div class="bg-white/70 backdrop-blur-xl p-10 rounded-2xl shadow-2xl border border-gray-200">
-
-            <!-- Título -->
-            <div class="flex items-center gap-3 mb-6">
-                <span class="w-4 h-4 rounded-full bg-[#6d8ac9] shadow-md"></span>
-                <h3 class="text-3xl font-bold text-[#0e1a3b]">Contactame</h3>
-            </div>
-
-            <p class="text-sm text-gray-600 mb-8">Envíame un mensaje y trabajemos juntos.</p>
-
-            <form class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="text" placeholder="Nombre"
-                        class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none transition">
-
-                    <input type="text" placeholder="Asunto"
-                        class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none transition">
-                </div>
-
-                <input type="email" placeholder="Email"
-                    class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none transition">
-
-                <textarea rows="5" placeholder="Escribe un mensaje..."
-                    class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none transition"></textarea>
-
-                <button
-                    class="w-full bg-[#3f5bd8] hover:bg-[#334cc0] text-white font-semibold py-3 rounded-xl shadow-lg transition-all">
-                    Enviar mensaje
-                </button>
-            </form>
+<body
+    class="font-sans antialiased text-gray-900 bg-gray-50 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 selection:bg-purple-500/30">
+    <!-- Decorative background elements -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div
+            class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-purple-500/5 blur-[120px] dark:bg-purple-500/10">
+        </div>
+        <div
+            class="absolute top-[20%] -right-[10%] w-[35%] h-[35%] rounded-full bg-blue-500/5 blur-[120px] dark:bg-blue-500/10">
+        </div>
+        <div
+            class="absolute bottom-[10%] left-[20%] w-[30%] h-[30%] rounded-full bg-purple-500/5 blur-[120px] dark:bg-purple-500/10">
         </div>
     </div>
-</section>
 
+    <nav
+        class="fixed w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="{{ route('home') }}"
+                class="text-lg md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-500 hover:to-blue-400 transition-all whitespace-nowrap">
+                Dainer Vargas
+            </a>
 
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home"
+                    class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">{{ __('messages.nav.home') }}</a>
+                <a href="#about"
+                    class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">{{ __('messages.nav.about') }}</a>
+                <a href="#skills"
+                    class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">{{ __('messages.nav.skills') }}</a>
+                <a href="#projects"
+                    class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">{{ __('messages.nav.projects') }}</a>
+                <a href="#contact"
+                    class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">{{ __('messages.nav.contact') }}</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <button id="lang-menu-btn"
+                        class="flex items-center gap-1.5 px-2 py-1 md:px-3 md:py-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all border border-transparent hover:border-purple-500/30">
+                        <span class="text-base md:text-lg">{{ app()->getLocale() == 'es' ? '🇪🇸' : '🇺🇸' }}</span>
+                        <span
+                            class="uppercase font-bold text-[10px] md:text-sm tracking-wider">{{ app()->getLocale() }}</span>
+                        <i id="lang-chevron"
+                            class="fa-solid fa-chevron-down text-[8px] md:text-[10px] opacity-50 transition-transform duration-300"></i>
+                    </button>
+                    <div id="lang-menu"
+                        class="absolute right-0 mt-2 w-36 bg-white dark:bg-gray-800 rounded-xl shadow-2xl py-2 hidden border border-gray-100 dark:border-gray-700 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                        <a href="{{ route('lang.switch', 'es') }}"
+                            class="flex items-center gap-3 px-4 py-2.5 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors w-full text-left {{ app()->getLocale() == 'es' ? 'text-purple-600 dark:text-purple-400 font-bold' : '' }}">
+                            <span class="text-lg">🇪🇸</span>
+                            <span class="text-sm">Español</span>
+                        </a>
+                        <a href="{{ route('lang.switch', 'en') }}"
+                            class="flex items-center gap-3 px-4 py-2.5 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors w-full text-left {{ app()->getLocale() == 'en' ? 'text-purple-600 dark:text-purple-400 font-bold' : '' }}">
+                            <span class="text-lg">🇺🇸</span>
+                            <span class="text-sm">English</span>
+                        </a>
+                    </div>
+                </div>
+
+                <button id="theme-toggle"
+                    class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <i class="fa-solid fa-sun hidden dark:block text-yellow-500"></i>
+                    <i class="fa-solid fa-moon block dark:hidden text-gray-600"></i>
+                </button>
+
+                <button id="mobile-menu-btn"
+                    class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Backdrop -->
+        <div id="mobile-menu-backdrop"
+            class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden transition-opacity duration-300 opacity-0">
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu"
+            class="fixed right-0 top-0 bottom-0 w-[280px] z-50 bg-white dark:bg-gray-900 shadow-2xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col p-8">
+            <div class="flex justify-between items-center mb-10">
+                <span
+                    class="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">Menu</span>
+                <button id="close-mobile-menu"
+                    class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+
+            <div class="flex flex-col space-y-6">
+                <a href="#home"
+                    class="mobile-link flex items-center gap-4 text-xl font-medium hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                    <i class="fa-solid fa-house w-6 text-purple-500"></i> {{ __('messages.nav.home') }}
+                </a>
+                <a href="#about"
+                    class="mobile-link flex items-center gap-4 text-xl font-medium hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                    <i class="fa-solid fa-user w-6 text-purple-500"></i> {{ __('messages.nav.about') }}
+                </a>
+                <a href="#skills"
+                    class="mobile-link flex items-center gap-4 text-xl font-medium hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                    <i class="fa-solid fa-code w-6 text-purple-500"></i> {{ __('messages.nav.skills') }}
+                </a>
+                <a href="#projects"
+                    class="mobile-link flex items-center gap-4 text-xl font-medium hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                    <i class="fa-solid fa-rocket w-6 text-purple-500"></i> {{ __('messages.nav.projects') }}
+                </a>
+                <a href="#contact"
+                    class="mobile-link flex items-center gap-4 text-xl font-medium hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                    <i class="fa-solid fa-envelope w-6 text-purple-500"></i> {{ __('messages.nav.contact') }}
+                </a>
+            </div>
+
+            <div class="mt-auto pt-10 border-t border-gray-100 dark:border-gray-800">
+                <p class="text-sm text-gray-500 text-center">Dainer Vargas &copy; {{ date('Y') }}</p>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center pt-20">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 order-2 md:order-1">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="px-4 py-2 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 font-semibold text-sm border border-purple-200 dark:border-purple-800/50">
+                            <span id="typewriter-role">{{ __('messages.hero.role') }}</span>
+                        </div>
+                        <div class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-bold leading-tight">
+                        {{ __('messages.hero.greeting') }} <br>
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">
+                            Dainer Vargas
+                        </span>
+                    </h1>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-lg leading-relaxed">
+                        {{ __('messages.hero.description') }}
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="{{ asset('storage/document/Hoja de vida Dainer Vargas.pdf') }}"
+                            download="Hoja de vida Dainer Vargas.pdf"
+                            class="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-xl shadow-lg shadow-purple-500/30 transition-all hover:-translate-y-1 font-bold">
+                            {{ __('messages.hero.download_cv') }}
+                        </a>
+                        <a href="#contact"
+                            class="px-8 py-3 border border-gray-300 dark:border-gray-700 hover:border-purple-500 dark:hover:border-purple-500 rounded-xl transition-all hover:bg-gray-50 dark:hover:bg-gray-800/50 font-bold">
+                            {{ __('messages.nav.contact') }}
+                        </a>
+                    </div>
+                    <div class="pt-8 flex gap-6 text-gray-500 dark:text-gray-400">
+                        <a href="https://github.com/DainerVargas/" target="_blank"
+                            class="text-2xl hover:text-purple-600 transition-all hover:scale-110"><i
+                                class="fa-brands fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/dainerws/" target="_blank"
+                            class="text-2xl hover:text-purple-600 transition-all hover:scale-110"><i
+                                class="fa-brands fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/dainer_varggas/" target="_blank"
+                            class="text-2xl hover:text-purple-600 transition-all hover:scale-110"><i
+                                class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="order-1 md:order-2 flex justify-center relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-blue-500/20 rounded-full blur-3xl -z-10 animate-pulse">
+                    </div>
+                    <img src="{{ asset('storage/images/jovenPrincipal-gafas.png') }}" alt="Dainer Vargas"
+                        class="w-full max-w-md drop-shadow-2xl hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 bg-white dark:bg-gray-800/50">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
+                        <span class="border-b-4 border-purple-500 pb-2">{{ __('messages.about.title') }}</span>
+                    </h2>
+                    <div
+                        class="bg-gray-50 dark:bg-gray-900 rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 dark:border-gray-800 relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl -mr-16 -mt-16">
+                        </div>
+                        <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-loose text-justify">
+                            {{ __('messages.about.description') }}
+                        </p>
+                        <div class="flex flex-wrap gap-4 mt-8 pt-8 border-t border-gray-100 dark:border-gray-800">
+                            @foreach (__('messages.hero.achievements') as $key => $achievement)
+                                <div
+                                    class="flex items-center gap-2 bg-purple-50 dark:bg-purple-900/20 px-4 py-2 rounded-xl border border-purple-100 dark:border-purple-800/30">
+                                    <i class="fa-solid fa-medal text-yellow-500 text-sm"></i>
+                                    <span
+                                        class="text-[10px] font-bold uppercase tracking-wider text-purple-700 dark:text-purple-400">{{ $achievement }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-24">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">
+                    <span class="border-b-4 border-purple-500 pb-2">{{ __('messages.skills.title') }}</span>
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                    @php
+                        $skills = [
+                            ['s' => 'sass', 'i' => 'sass.svg'],
+                            ['s' => 'javascript', 'i' => 'jsAvance.png'],
+                            ['s' => 'php', 'i' => 'phpAvance.png'],
+                            ['s' => 'laravel', 'i' => 'laravelAvance.png'],
+                            ['s' => 'livewire', 'i' => 'livewire.png'],
+                            ['s' => 'mysql', 'i' => 'mysqlAvance.png'],
+                            ['s' => 'html', 'i' => 'htmlAvance.png'],
+                            ['s' => 'css', 'i' => 'cssAvance.png'],
+                            ['s' => 'tailwind', 'i' => 'tailwindcss.svg'],
+                            ['s' => 'figma', 'i' => 'Figma.png'],
+                        ];
+                    @endphp
+                    @foreach ($skills as $skill)
+                        <div
+                            class="skill-card group relative bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-100 dark:border-gray-700/50 flex flex-col items-center justify-center h-52 cursor-pointer overflow-hidden animate-float">
+                            <div
+                                class="absolute -right-4 -bottom-4 w-24 h-24 bg-purple-500/5 dark:bg-purple-400/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition-colors">
+                            </div>
+                            <div
+                                class="relative z-10 flex flex-col items-center group-hover:opacity-0 transition-opacity duration-300">
+                                <div
+                                    class="w-16 h-16 mb-4 flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                                    <img src="{{ asset('storage/images/' . $skill['i']) }}"
+                                        alt="{{ $skill['s'] }}"
+                                        class="max-h-full max-w-full object-contain filter drop-shadow-sm">
+                                </div>
+                                <h3 class="font-bold text-gray-800 dark:text-white capitalize tracking-wide">
+                                    {{ $skill['s'] }}</h3>
+                            </div>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-purple-600/95 to-blue-600/95 dark:from-purple-900/95 dark:to-blue-900/95 p-6 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 backdrop-blur-sm">
+                                <div class="w-10 h-1 bg-white/30 rounded-full mb-4"></div>
+                                <p class="text-white text-[13px] text-center leading-relaxed font-medium">
+                                    {{ __('messages.skills.items.' . $skill['s']) }}
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 bg-white dark:bg-gray-800/50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">
+                    <span class="border-b-4 border-purple-500 pb-2">{{ __('messages.projects.title') }}</span>
+                </h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    @php
+                        $projects = [
+                            [
+                                'key' => 'laguajira24hrs',
+                                'img' => 'laguajira24hrs.png',
+                                'link' => 'https://laguajira24hrs.com/',
+                            ],
+                            [
+                                'key' => 'web_app',
+                                'img' => 'mcstudies.png',
+                                'link' => 'https://aplicacion.mcstudies.com/',
+                            ],
+                            [
+                                'key' => 'construcentro',
+                                'img' => 'construcentro.png',
+                                'link' => 'https://construcentro.com.co/',
+                            ],
+                            ['key' => 'sena_app', 'img' => 'SenaAplicativo.png', 'link' => '#'],
+                        ];
+                    @endphp
+                    @foreach ($projects as $project)
+                        <div
+                            class="bg-gray-50 dark:bg-gray-900 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-100 dark:border-gray-800 group h-full flex flex-col">
+                            <div class="relative overflow-hidden h-56">
+                                <img src="{{ asset('storage/Projects/' . $project['img']) }}"
+                                    alt="{{ __('messages.projects.items.' . $project['key'] . '.title') }}"
+                                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                                    <a href="{{ $project['link'] }}" target="_blank"
+                                        class="px-8 py-3 bg-white text-gray-900 rounded-full font-bold hover:bg-gray-100 transition-all hover:scale-105 active:scale-95">
+                                        {{ __('messages.projects.view_project') }} <i
+                                            class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="p-8 flex flex-col flex-grow">
+                                <h3
+                                    class="text-2xl font-bold mb-4 text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                                    {{ __('messages.projects.items.' . $project['key'] . '.title') }}</h3>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6 line-clamp-4">
+                                    {{ __('messages.projects.items.' . $project['key'] . '.description') }}
+                                </p>
+                                <div class="mt-auto md:hidden">
+                                    <a href="{{ $project['link'] }}" target="_blank"
+                                        class="inline-flex items-center gap-2 text-purple-600 dark:text-purple-400 font-bold text-sm tracking-wide group-hover:gap-3 transition-all">
+                                        {{ __('messages.projects.view_project') }} <i
+                                            class="fa-solid fa-arrow-right text-xs"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl -ml-32 -mt-32"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl -mr-48 -mb-48"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div
+                    class="max-w-4xl mx-auto bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100 dark:border-gray-700">
+                    <div class="text-center mb-12">
+                        <span
+                            class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                            {{ __('messages.contact.subtitle') }}</h2>
+                        <p class="text-gray-600 dark:text-gray-400">{{ __('messages.contact.message') }}</p>
+                    </div>
+                    <livewire:contact-form />
+                </div>
+            </div>
+        </section>
     </main>
 
-</body>
-@livewireScripts
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <a href="#"
+                class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500 mb-6 block">
+                Dainer Vargas
+            </a>
+            <div class="flex justify-center gap-6 mb-8 text-gray-500 dark:text-gray-400">
+                <a href="https://github.com/DainerVargas/" target="_blank"
+                    class="hover:text-purple-600 transition-colors text-xl"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/dainerws/" target="_blank"
+                    class="hover:text-purple-600 transition-colors text-xl"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/dainer_varggas/" target="_blank"
+                    class="hover:text-purple-600 transition-colors text-xl"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <p class="text-gray-500 dark:text-gray-400">{{ __('messages.footer.copy') }}</p>
+        </div>
+    </footer>
 
-<script src="/resources/js/app.js"></script>
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMobileMenuBtn = document.getElementById('close-mobile-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function openMobileMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+            mobileMenuBackdrop.classList.remove('hidden');
+            setTimeout(() => {
+                mobileMenuBackdrop.classList.remove('opacity-0');
+            }, 10);
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.add('translate-x-full');
+            mobileMenuBackdrop.classList.add('opacity-0');
+            setTimeout(() => {
+                mobileMenuBackdrop.classList.add('hidden');
+            }, 300);
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        closeMobileMenuBtn.addEventListener('click', closeMobileMenu);
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
+
+        themeToggleBtn.addEventListener('click', function() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Language Menu Logic
+        const langMenuBtn = document.getElementById('lang-menu-btn');
+        const langMenu = document.getElementById('lang-menu');
+        const langChevron = document.getElementById('lang-chevron');
+
+        langMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            langMenu.classList.toggle('hidden');
+            langChevron.classList.toggle('rotate-180');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!langMenu.contains(e.target) && !langMenuBtn.contains(e.target)) {
+                langMenu.classList.add('hidden');
+                langChevron.classList.remove('rotate-180');
+            }
+        });
+
+        // Skill Cards Tap Logic
+        const skillCards = document.querySelectorAll('.skill-card');
+
+        skillCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Determine if we should activate or deactivate
+                const wasActive = this.classList.contains('is-active');
+
+                // Clear all others
+                skillCards.forEach(c => c.classList.remove('is-active'));
+
+                // Toggle current
+                if (!wasActive) {
+                    this.classList.add('is-active');
+                }
+
+                e.stopPropagation();
+            });
+        });
+
+        // Close skill card if clicking elsewhere
+        document.addEventListener('click', function() {
+            skillCards.forEach(c => c.classList.remove('is-active'));
+        });
+    </script>
+    @livewireScripts
+</body>
 
 </html>
